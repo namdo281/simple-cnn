@@ -18,9 +18,9 @@ class MaxPooling:
         for i in range(0, c.shape[0], self.stride):
             for j in range(0, c.shape[1], self.stride): 
                 region = c[i:i+self.filter_size[0], j:j+self.filter_size[1]]
-                nums = region.reshape[-1]
+                nums = region.reshape(-1)
                 _max = max(nums)
-                y_c[i, j] = _max
+                y_c[(i-1)//self.stride, (j-1)//self.stride] = _max
                 _argmax = (i + np.argmax(nums) // self.filter_size[1], j + np.argmax(nums) % self.filter_size[0])
                 mask[_argmax[0], _argmax[1]] = 1 
         return y_c, mask
